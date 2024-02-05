@@ -1,0 +1,69 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Book {
+public:
+
+    Book(string title, string author, int year) 
+        : title(title), author(author), year(year) {}
+
+    void displayInfo() const {
+        cout << "Title: " << title << "\nAuthor: " << author << "\nYear: " << year << endl;
+    }
+
+private:
+    string title;
+    string author;
+    int year;
+};
+
+class Library {
+public:
+    void addBook(const Book& book) {
+        books.push_back(book);
+    }
+
+    void displayBooks() const {
+        cout << "Books in the library:\n";
+        for (const Book& book : books) {
+            book.displayInfo();
+            cout << "-----------------------\n";
+        }
+    }
+
+private:
+    vector<Book> books;
+};
+
+int main() {
+    Library library;
+
+    int numBooks;
+    cout << "Cate carti doriti sa introduceti? ";
+    cin >> numBooks;
+
+    for (int i = 0; i < numBooks; ++i) {
+        string title, author;
+        int year;
+
+        cout << "\nIntroduceti detaliile cartii " << i + 1 << ":\n";
+        cout << "Titlu: ";
+        cin.ignore();
+        getline(cin, title);
+
+        cout << "Autor: ";
+        getline(cin, author);
+
+        cout << "An: ";
+        cin >> year;
+
+        Book newBook(title, author, year);
+        library.addBook(newBook);
+    }
+
+    cout << "\nAfisare carti in biblioteca:\n";
+    library.displayBooks();
+
+    return 0;
+}
